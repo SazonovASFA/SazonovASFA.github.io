@@ -11,10 +11,12 @@
 
 <div class="w3-container w3-border w3-large">
 <p><span style="font-weight: bold">Every Interval at Once</span>
-<button class="w3-bar-item w3-button" onclick="openPage('Home', this)"> Info </button>
+<!---<button class="w3-bar-item w3-button" onclick="openPage('Home', this)"> Info </button>
+<button class="w3-bar-item w3-button" onclick="openPage('Songs', this)">  Songs </button>-->
 <button class="w3-bar-item w3-button" onclick="openPage('News', this)" id="defaultOpen"> Map </button>
-<button class="w3-bar-item w3-button" onclick="openPage('Songs', this)">  Songs </button>
+<button class="w3-bar-item w3-button" onclick="openPage('Data', this)"> Data </button>
 <button class="w3-bar-item w3-button" onclick="openPage('Acknowledgements', this)"> Acknowledgements </button></p>
+
 
 
 </div>
@@ -23,7 +25,6 @@
 
 background-color: white;
 }</style>
-
 
 <div id="Home" class="tabcontent">
   <h3 style="margin-left: 25px;">Every Interval at Once</h3>
@@ -156,6 +157,9 @@ background-color: white;
   
   <div id="my_dataviz"></div>
 </div>
+<div id="Data" class="tabcontent">
+  
+</div>
 
 
 
@@ -191,6 +195,9 @@ background-color: white;
     if (pageName === 'News' && !newsGraphRendered) {
       renderGraph(2023);
       newsGraphRendered = true;
+    } 
+    if (pageName === 'Data') {
+      window.location.href = "https://figshare.com/articles/dataset/EveryIntervalMIDIDATA/25322941";
     } 
 
   }
@@ -331,4 +338,3 @@ background-color: white;
 
 
 </html>
-
