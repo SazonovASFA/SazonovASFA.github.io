@@ -8,13 +8,15 @@
 
 
 <!-- Create a div where the graph will take place -->
-<div id="my_dataviz"></div>
+
 <div class="w3-container w3-border w3-large">
 <p><span style="font-weight: bold">Every Interval at Once</span>
 <button class="w3-bar-item w3-button" onclick="openPage('Home', this)"> Info </button>
 <button class="w3-bar-item w3-button" onclick="openPage('News', this)" id="defaultOpen"> Map </button>
-<button class="w3-bar-item w3-button" onclick="openPage('Songs', this)"> Songs </button>
+<button class="w3-bar-item w3-button" onclick="openPage('Songs', this)">  Songs </button>
 <button class="w3-bar-item w3-button" onclick="openPage('Acknowledgements', this)"> Acknowledgements </button></p>
+
+
 </div>
 <style>body {
 
@@ -25,18 +27,30 @@ background-color: white;
 
 <div id="Home" class="tabcontent">
   <h3 style="margin-left: 25px;">Every Interval at Once</h3>
-  <p style="margin-left: 25px;">Every Interval at Once is a project centered around applying music theory to music information retrieval. As of now, I'm working on adding more features to this website, such as filtration by time, genre, and more. </p>
-  <p>The entire dataset of 23056 songs is available <a href="https://figshare.com/articles/dataset/EveryIntervalMIDIDATA/25322941">here.</a></p>
+  <p style="margin-left: 25px;">Every Interval at Once is a project centered around applying music theoretical principles for the sake of music information retrieval, specifically harmony and melody. </p>
+  
   <figure>
     <img src="https://upload.wikimedia.org/wikipedia/commons/6/60/Torus_from_rectangle.gif" alt="Torus_from_rectangle" width="30%">
   <figcaption>Fig.1 <a href = https://en.m.wikipedia.org/wiki/File:Torus_from_rectangle.gif>Torus from a rectangle</a></figcaption>
   <p style="margin-left: 25px;"></p>
-  
   </figure>
 
+  
 
-  <button class="w3-bar-item w3-button" onclick="playLoop()"> Loop </button>
-  <script>
+  <img src="Pentatonality (1).png" alt="Pentatonality Matrix" width="30%">
+  <img src="Chromaticism.png" alt="Chromaticism Matrix" width="30%">
+  <img src="Consonance (2).png" alt="Consonance Matrix" width="30%">
+  <img src="Diatonality (2).png" alt="Diatonality Matrix" width="30%">
+  <img src="Polarity (1).png" alt="Polarity Matrix" width="30%">
+  <img src="Tenney Height.png" alt="Tenney Height Matrix" width="30%">
+  
+  As of now, I'm working on adding more features to this website, such as the ability to filter by year, genre, and 
+  a rederivation of a Markov matrix from the interval distribution, to be able to 'hear' the map through a Markovian recreation.
+
+  <p>The entire dataset of 23056 songs is available <a href="https://figshare.com/articles/dataset/EveryIntervalMIDIDATA/25322941">here.</a></p>
+
+  <!--<button class="w3-bar-item w3-button" onclick="playLoop()"> Loop </button>
+  <script>/*
   const synth = new Tone.Synth().toDestination();
   const seq = new Tone.Sequence((time, note) => {
     synth.triggerAttackRelease(note, 0.1, time);
@@ -55,8 +69,8 @@ background-color: white;
       loop_on=0;
     }
     
-  }
-  </script>
+  }*/
+  </script>-->
 </div>
 
 <div id="Songs" class="tabcontent">
@@ -140,7 +154,7 @@ background-color: white;
 <div id="News" class="tabcontent">
   <!--<input type="range" name="mySlider" id=mySlider min="1950" max="2023" value="2023">-->
   
-  
+  <div id="my_dataviz"></div>
 </div>
 
 
@@ -169,17 +183,15 @@ background-color: white;
     for (i = 0; i < tablinks.length; i++) {
       tablinks[i].style.backgroundColor = '';
     }
-
     // Show the selected tab content and mark the tab link as active
     document.getElementById(pageName).style.display = 'block';
     elmnt.style.backgroundColor = color;
-
+    
     // If the News tab is opened, render the D3.js graph
     if (pageName === 'News' && !newsGraphRendered) {
       renderGraph(2023);
       newsGraphRendered = true;
-    }
-    
+    } 
 
   }
   
@@ -236,7 +248,8 @@ background-color: white;
       // Add a tooltip div.
       var tooltip = d3.select("#my_dataviz")
         .append("div")
-        .style("bottom",10)
+        .style("bottom",5)
+        .style("left",5)
         .style("opacity", 0)
         .attr("class", "tooltip")
         .style("background-color", "white")
@@ -251,6 +264,7 @@ background-color: white;
       // A function that changes the tooltip when the user hovers over a point.
       var mouseover = function(d) {
         tooltip.style("opacity", 1);
+        
         //const synth = new Tone.Synth().toDestination();
         //synth.triggerAttackRelease("C4", "8n");
       };
@@ -261,6 +275,12 @@ background-color: white;
           .html(d.Title + " - " + d.Artist + ", " + d.Genre + " (" + d.x + "," + d.y + ")")     
       };
 
+      var touchstart = function(d) {
+        tooltip
+          
+          .html(d.Title + " - " + d.Artist + ", " + d.Genre + " (" + d.x + "," + d.y + ")")     
+      };
+      
       
 
       var mouseleave = function(d) {
@@ -311,3 +331,4 @@ background-color: white;
 
 
 </html>
+
