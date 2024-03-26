@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 
-<!-- Load d3.js -->
+
 <script src="https://d3js.org/d3.v4.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/tone"></script>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 
-<!-- Create a div where the graph will take place -->
+
 
 <div class="w3-container w3-border w3-large">
 <p><span style="font-weight: bold">Every Interval at Once</span>
-<!---<button class="w3-bar-item w3-button" onclick="openPage('Home', this)"> Info </button>
-<button class="w3-bar-item w3-button" onclick="openPage('Songs', this)">  Songs </button>-->
+<button class="w3-bar-item w3-button" onclick="openPage('Home', this)"> Info </button>
+<!--<button class="w3-bar-item w3-button" onclick="openPage('Songs', this)">  Songs </button>-->
 <button class="w3-bar-item w3-button" onclick="openPage('News', this)" id="defaultOpen"> Map </button>
 <button class="w3-bar-item w3-button" onclick="openPage('Data', this)"> Data </button>
 <button class="w3-bar-item w3-button" onclick="openPage('Acknowledgements', this)"> Acknowledgements </button></p>
@@ -27,120 +27,66 @@ background-color: white;
 }</style>
 
 <div id="Home" class="tabcontent">
-  <h3 style="margin-left: 25px;">Every Interval at Once</h3>
-  <p style="margin-left: 25px;">Every Interval at Once is a project centered around applying music theoretical principles for the sake of music information retrieval, specifically harmony and melody. </p>
+  <!--<h3 style="margin-left: 25px;">Every Interval at Once</h3>-->
+  <p style="margin-left: 25px;">Every Interval at Once is a project centered around applying music theoretical principles to quantify harmonic and melodic features in music. </p>
   
   <figure>
+    <img src="Circle of Fifths Markov Chain.gv (2)_page-0001.jpg" alt="Circle_of_Fifths_Distribution" width="30%">
+  <figcaption>Fig.1 Interval Distribution on the Circle of Fifths</a></figcaption>
+  <p style="margin-left: 25px;"></p>
+  </figure>
+  <figure>
     <img src="https://upload.wikimedia.org/wikipedia/commons/6/60/Torus_from_rectangle.gif" alt="Torus_from_rectangle" width="30%">
-  <figcaption>Fig.1 <a href = https://en.m.wikipedia.org/wiki/File:Torus_from_rectangle.gif>Torus from a rectangle</a></figcaption>
+  <figcaption>Fig.2 <a href = https://en.m.wikipedia.org/wiki/File:Torus_from_rectangle.gif>Torus from a rectangle</a></figcaption>
+  <p style="margin-left: 25px;"></p>
+  </figure>
+  <p style="margin-left: 25px;">If you treat locations on the circle of fifths as the nodes of a graph, and note the frequency of each path over the 
+    course of a song, you obtain a representation of the harmonic content of a song called an interval distribution.
+    These are very similar to a Markov graph, but measure the frequency of all intervals rather than the frequency of a note succeeding another note. 
+    This can be represented on a matrix, similar to a Markov matrix, where the row and column on which you can find an element on this 
+    distribution corresponds to the start and end note of an interval. However, due to the cyclical nature of musical notes, 
+    adjacencies on this distribution must be represented on a torus rather than a matrix. This can easily be visualized by 
+    'wrapping' the square distribution such that its ends are connected, resulting in a torus</p>
+
+ 
+  <figure>
+    <img src="heatmap_donut.png" alt="Heatmap_Donut" width="30%">
+  <figcaption>Fig.3 Toroidal Heatmap</a></figcaption>
   <p style="margin-left: 25px;"></p>
   </figure>
 
   
 
-  <img src="Pentatonality (1).png" alt="Pentatonality Matrix" width="30%">
-  <img src="Chromaticism.png" alt="Chromaticism Matrix" width="30%">
-  <img src="Consonance (2).png" alt="Consonance Matrix" width="30%">
-  <img src="Diatonality (2).png" alt="Diatonality Matrix" width="30%">
-  <img src="Polarity (1).png" alt="Polarity Matrix" width="30%">
-  <img src="Tenney Height.png" alt="Tenney Height Matrix" width="30%">
+<!--chromatic matrix, fifths matrix-->
+<p style="margin-left: 25px;">Having adjacencies by fifths rather than semitones may reveal relationships in line with certain 
+  music theoretical theories, such as diatonic theory, with which scales like natural major and natural minor are constructed. 
+  These scales are signified by a 7x7 region on the distribution.</p>
+
+  <p style="margin-left: 25px;">In order to compare the similarity of these mathematical objects, and thus the songs they represent, I build on the concept of Earth Mover's Distance, defining Interval Mover's Distance.
+  Just as Earth Mover's Distance concerns the optimal transport of each 'granule' of a distribution, Interval Mover's Distance concerns the optimal transport of each 
+  'strand' on the aforementioned interval distribution. After normalizing each song by key, this is used to compare the harmonic features of each song. 
+To do this, you simply take Earth Mover's Distance for a torus, through some alterations to the cost matrix.</p>
+  <p style="margin-left: 25px;">This metric for similarity is versatile, being applicable to various tasks in music information retrieval. 
+  This website demonstrates its capability in music mapping, visualizing and sonifying the 'harmonic space' of music. 
+  UMAP and Interval Mover's Distance were used to map out a dataset of 23056 songs across 75 genres, collected from the algorithmically 
+  generated playlists of <a href="http://everynoise.com/">Every Noise at Once</a>. Colors on the map are controlled by the harmonic features 
+  of each song, in line with contemporary music theory (Red: Polarity, Green: Diationality, Blue: Consonance). The Markov matrix of a song can be rederived from the interval distribution, allowing you to hear an aleatoric (randomized) recreation of each song.</p>
+
+  <!--wrapped matrix-->
   
-  As of now, I'm working on adding more features to this website, such as the ability to filter by year, genre, and 
-  a rederivation of a Markov matrix from the interval distribution, to be able to 'hear' the map through a Markovian recreation.
-
-  <p>The entire dataset of 23056 songs is available <a href="https://figshare.com/articles/dataset/EveryIntervalMIDIDATA/25322941">here.</a></p>
-
-  <!--<button class="w3-bar-item w3-button" onclick="playLoop()"> Loop </button>
-  <script>/*
-  const synth = new Tone.Synth().toDestination();
-  const seq = new Tone.Sequence((time, note) => {
-    synth.triggerAttackRelease(note, 0.1, time);
-    // subdivisions are given as subarrays
-  }, ["E4", "Eb4" ,"D4", "Eb4", "E4"]).start(0);
-  Tone.Transport.bpm.value = 120;
-  var loop_on = 0;
-  function playLoop() {
-    if(loop_on==0) {
-      loop_on=1
-      Tone.start();
-      Tone.Transport.start();
-      
-    } else {
-      Tone.Transport.stop();
-      loop_on=0;
-    }
-    
-  }*/
-  </script>-->
+  
+  <p style="margin-left: 25px;">To avoid making the UI too cluttered, I left out some potential features, such as filtering by year. However, you can see this in the gif below.
+    <figure>
+      <img src="MusicHistorySum.gif" alt="Music_History" width="30%">
+       <figcaption>Fig.4 Music map from 1960-2023</figcaption>
+      <p style="margin-left: 25px;"></p>
+    </figure>
+  
 </div>
 
 <div id="Songs" class="tabcontent">
   <p style="margin-left: 25px;">Work in progress! This section will contain a search bar for songs, and return a few similar songs.</p>
-  <!--<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
-
-  <ul id="myUL">
-    <li><a href="#">Adele</a></li>
-    <li><a href="#">Agnes</a></li>
   
-    <li><a href="#">Billy</a></li>
-    <li><a href="#">Bob</a></li>
-  
-    <li><a href="#">Calvin</a></li>
-    <li><a href="#">Christina</a></li>
-    <li><a href="#">Cindy</a></li>
-  </ul>
-  <style>#myInput {
-    background-image: url('/css/searchicon.png'); /* Add a search icon to input */
-    background-position: 10px 12px; /* Position the search icon */
-    background-repeat: no-repeat; /* Do not repeat the icon image */
-    width: 100%; /* Full-width */
-    font-size: 16px; /* Increase font-size */
-    padding: 12px 20px 12px 40px; /* Add some padding */
-    border: 1px solid #ddd; /* Add a grey border */
-    margin-bottom: 12px; /* Add some space below the input */
-  }
-  
-  #myUL {
-    /* Remove default list styling */
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  #myUL li a {
-    border: 1px solid #ddd; /* Add a border to all links */
-    margin-top: -1px; /* Prevent double borders */
-    background-color: #f6f6f6; /* Grey background color */
-    padding: 12px; /* Add some padding */
-    text-decoration: none; /* Remove default text underline */
-    font-size: 18px; /* Increase the font-size */
-    color: black; /* Add a black text color */
-    display: block; /* Make it into a block element to fill the whole list */
-  }
-  
-  #myUL li a:hover:not(.header) {
-    background-color: #eee; /* Add a hover effect to all links, except for headers */
-  }</style>
-  <script>function myFunction() {
-    // Declare variables
-    var input, filter, ul, li, a, i, txtValue;
-    input = document.getElementById('myInput');
-    filter = input.value.toUpperCase();
-    ul = document.getElementById("myUL");
-    li = ul.getElementsByTagName('li');
-  
-    // Loop through all list items, and hide those who don't match the search query
-    for (i = 0; i < li.length; i++) {
-      a = li[i].getElementsByTagName("a")[0];
-      txtValue = a.textContent || a.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        li[i].style.display = "";
-      } else {
-        li[i].style.display = "none";
-      }
-    }
-  }</script>-->
-
 </div>
 
 <div id="Acknowledgements" class="tabcontent">
@@ -153,10 +99,98 @@ background-color: white;
 </div>
 
 <div id="News" class="tabcontent">
-  <!--<input type="range" name="mySlider" id=mySlider min="1950" max="2023" value="2023">-->
   
+  <p><button class="w3-bar-item w3-button" onclick="enableLoop()"> Turn on sound </button>
+   Speed <input type="range" name="mySlider" id=mySlider min="65" max="500" value="180"></p>
+  
+  <script>
+  
+  var markovMat=[[1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12],
+  [1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12],
+  [1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12],
+  [1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12],
+  [1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12],
+  [1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12],
+  [1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12],
+  [1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12],
+  [1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12],
+  [1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12],
+  [1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12],
+  [1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12,1/12],
+  ]
+  var notes = ["C4","Db4","D4","Eb4","E4","F4","Gb4","G4","Ab4","A4","Bb4","B4"]
+  var notestate=0;
+  var stuckcounter=0;
+  const reverb = new Tone.Reverb().toDestination();
+  const synth = new Tone.FMSynth().connect(reverb);
+  var rate=180
+  const backgroundSynth = new Tone.FMSynth().connect(reverb);;
+  var loop_on = 0;
+  function enableLoop() {
+    if(loop_on==0) {
+      loop_on=1
+      notestate=0
+      Tone.start();
+      Tone.Transport.start();
+      playNote()
+      
+    } else {
+      Tone.Transport.stop();
+      loop_on=0;
+    }
+    
+  }
+  function changeMarkov(d) {
+    var denominator = [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]
+    for(let i = 0; i < 144; i++) {
+      denominator[parseInt((i-(i%12))/12)]+=parseFloat(d[i])
+    }
+    for(let i = 0; i < 144; i++) {
+      if(denominator[parseInt((i-(i%12))/12)]!=0) {
+        
+        markovMat[i%12][parseInt((i-(i%12))/12)]=parseFloat(d[i])/denominator[parseInt((i-(i%12))/12)]
+        
+      } else {
+        markovMat[i%12][parseInt((i-(i%12))/12)]=0
+      }
+      
+    }
+  }
+  function playNote() {
+    backgroundSynth.triggerAttackRelease("C2", 0.1);
+    synth.triggerAttackRelease(notes[notestate], 0.1);
+    var rand = Math.random()
+    var count = 0
+    for(let i = 0; i < 12; i++) {
+      count+=parseFloat(markovMat[i][notestate])
+
+      if(count>rand) {
+        
+        if(notestate==i){
+          stuckcounter+=1;
+        }
+        
+        notestate=i
+        if(stuckcounter>2) {
+          
+          notestate=(i+7)%12
+          stuckcounter=0
+        }
+        i=12
+      }
+    }
+    setTimeout(function(){
+      if(loop_on==1) {
+        playNote()
+      }
+      
+    }, rate);   
+  }
+  </script>
+
   <div id="my_dataviz"></div>
 </div>
+
 <div id="Data" class="tabcontent">
   
 </div>
@@ -164,11 +198,25 @@ background-color: white;
 
 
 <script>
-  // Function to switch between tabs
-  var newsGraphRendered = false;
-  //var matGraphRendered = false;
+  var newsGraphRendered = false; 
+  
+  d3.select("#mySlider").on("change", function(d){
+    rate = this.value
+    //var svg = d3.select("#News");
+    //svg.selectAll("circle").remove()
 
- 
+  })
+  function removeGraph() {
+    var svg = d3.select("#News");
+    svg.selectAll("*").html("");
+  }
+  function updateGraph() {
+    var margin = {top: 0, right: 0, bottom: 0, left: 0},
+        width = 900*2 - margin.left - margin.right,
+        height = 600*2 - margin.top - margin.bottom;
+    var svg = d3.select("#News");
+    
+  }
 
   function rgbToHex(r, g, b) {
   return "#" + (1 << 24 | r << 16 | g << 8 | b).toString(16).slice(1);
@@ -176,22 +224,20 @@ background-color: white;
   function openPage(pageName, elmnt, color) {
     var i, tabcontent, tablinks;
 
-    // Hide all tab content
+
     tabcontent = document.getElementsByClassName('tabcontent');
     for (i = 0; i < tabcontent.length; i++) {
       tabcontent[i].style.display = 'none'
     }
 
-    // Deactivate all tab links
     tablinks = document.getElementsByClassName('tablink');
     for (i = 0; i < tablinks.length; i++) {
       tablinks[i].style.backgroundColor = '';
     }
-    // Show the selected tab content and mark the tab link as active
+    
     document.getElementById(pageName).style.display = 'block';
     elmnt.style.backgroundColor = color;
     
-    // If the News tab is opened, render the D3.js graph
     if (pageName === 'News' && !newsGraphRendered) {
       renderGraph(2023);
       newsGraphRendered = true;
@@ -203,7 +249,7 @@ background-color: white;
   }
   
 
-  // D3.js code for rendering the graph
+  
   function renderGraph(selectedYear) {
     var margin = {top: 0, right: 0, bottom: 0, left: 0},
         width = 900*2 - margin.left - margin.right,
@@ -221,7 +267,7 @@ background-color: white;
       .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    // Add a rect for background
+        
     //svg.append("rect")
       //.attr("x", 0)
       //.attr("y", 0)
@@ -234,10 +280,10 @@ background-color: white;
       .attr("height", "100%")
       .attr("fill", "white");
 
-    // Read the data
-    d3.csv("https://raw.githubusercontent.com/buildercatninja/EveryIntervalcsv/main/EIAOUmapfile.csv", function(data) {
+    // read data
+    d3.csv("https://raw.githubusercontent.com/buildercatninja/EveryIntervalcsv/main/EIAO_UMAP.csv", function(data) {
       
-      // Add X axis
+      
       var x = d3.scaleLinear()
         .domain([-2.5, 12.5])
         .range([0, width]);
@@ -245,14 +291,14 @@ background-color: white;
       //  .attr("transform", "translate(0," + height + ")")
       //  .call(d3.axisBottom(x));
 
-      // Add Y axis
+      
       var y = d3.scaleLinear()
         .domain([0, 10])
         .range([height, 0]);
       svg.append("g")
       //  .call(d3.axisLeft(y));
 
-      // Add a tooltip div.
+      
       var tooltip = d3.select("#my_dataviz")
         .append("div")
         .style("bottom",5)
@@ -268,9 +314,10 @@ background-color: white;
         .style("bottom","10px")
         
 
-      // A function that changes the tooltip when the user hovers over a point.
+      // tooltip
       var mouseover = function(d) {
         tooltip.style("opacity", 1);
+        changeMarkov(d);
         
         //const synth = new Tone.Synth().toDestination();
         //synth.triggerAttackRelease("C4", "8n");
@@ -338,3 +385,6 @@ background-color: white;
 
 
 </html>
+
+
+
